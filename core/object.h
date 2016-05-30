@@ -492,32 +492,6 @@ public:
 	void add_change_receptor( Object *p_receptor );
 	void remove_change_receptor( Object *p_receptor );
 
-	template<class T>
-	T *cast_to() {
-
-#ifndef NO_SAFE_CAST
-		return SAFE_CAST<T*>(this);
-#else
-		if (is_type_ptr(T::get_type_ptr_static()))
-			return static_cast<T*>(this);
-		else
-			return NULL;
-#endif
-	}
-
-	template<class T>
-	const T *cast_to() const {
-
-#ifndef NO_SAFE_CAST
-		return SAFE_CAST<const T*>(this);
-#else
-		if (is_type_ptr(T::get_type_ptr_static()))
-			return static_cast<const T*>(this);
-		else
-			return NULL;
-#endif
-	}
-
 	enum {
 
 		NOTIFICATION_POSTINITIALIZE=0,
@@ -631,6 +605,32 @@ public:
 	virtual ~Object();
 
 };
+
+template<class T, class O>
+T *cast_to(O* o) {
+
+#ifndef NO_SAFE_CAST
+	return SAFE_CAST<T*>(o);
+#else
+	if (is_type_ptr(T::get_type_ptr_static()))
+			return static_cast<T*>(o);
+	else
+			return NULL;
+#endif
+}
+
+template<class T, class O>
+const T *cast_to(const O* o) {
+
+#ifndef NO_SAFE_CAST
+	return SAFE_CAST<const T*>(o);
+#else
+	if (is_type_ptr(T::get_type_ptr_static()))
+			return static_cast<const T*>(o);
+	else
+			return NULL;
+#endif
+}
 
 
 bool predelete_handler(Object *p_object);

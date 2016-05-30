@@ -939,7 +939,7 @@ Error Main::setup2() {
 	if (bool(GLOBAL_DEF("display/emulate_touchscreen",false))) {
 		if (!OS::get_singleton()->has_touchscreen_ui_hint() && Input::get_singleton()) {
 			//only if no touchscreen ui hint, set emulation
-			InputDefault *id = Input::get_singleton()->cast_to<InputDefault>();
+			InputDefault *id = cast_to<InputDefault>(Input::get_singleton());
 			if (id)
 				id->set_emulate_touch(true);
 		}
@@ -1156,7 +1156,7 @@ bool Main::start() {
 
 			StringName instance_type=script_res->get_instance_base_type();
 			Object *obj = ObjectTypeDB::instance(instance_type);
-			MainLoop *script_loop = obj?obj->cast_to<MainLoop>():NULL;
+			MainLoop *script_loop = obj?cast_to<MainLoop>(obj):NULL;
 			if (!script_loop) {
 				if (obj)
 					memdelete(obj);
@@ -1191,7 +1191,7 @@ bool Main::start() {
 				ERR_FAIL_V(false);
 			}
 
-			main_loop=ml->cast_to<MainLoop>();
+			main_loop=cast_to<MainLoop>(ml);
 			if (!main_loop) {
 
 				memdelete(ml);
@@ -1204,7 +1204,7 @@ bool Main::start() {
 
 	if (main_loop->is_type("SceneTree")) {
 
-		SceneTree *sml = main_loop->cast_to<SceneTree>();
+		SceneTree *sml = cast_to<SceneTree>(main_loop);
 
 		if (debug_collisions) {
 			sml->set_debug_collisions_hint(true);
@@ -1404,7 +1404,7 @@ bool Main::start() {
 							ERR_EXPLAIN("Cannot instance script for autoload, expected 'Node' inheritance, got: "+String(ibt));
 							ERR_CONTINUE( obj==NULL );
 
-							n = obj->cast_to<Node>();
+							n = cast_to<Node>(obj);
 							n->set_script(s.get_ref_ptr());
 						}
 

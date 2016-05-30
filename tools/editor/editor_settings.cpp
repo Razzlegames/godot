@@ -625,7 +625,7 @@ void EditorSettings::notify_changes() {
 	SceneTree *sml=NULL;
 
 	if (OS::get_singleton()->get_main_loop())
-		sml = OS::get_singleton()->get_main_loop()->cast_to<SceneTree>();
+		sml = cast_to<SceneTree>(OS::get_singleton()->get_main_loop());
 
 	if (!sml) {
 		print_line("not SML");

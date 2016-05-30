@@ -179,7 +179,7 @@ ShaderTextEditor::ShaderTextEditor() {
 void ShaderEditor::_menu_option(int p_option) {
 
 
-	ShaderTextEditor *current = tab_container->get_current_tab_control()->cast_to<ShaderTextEditor>();
+	ShaderTextEditor *current = cast_to<ShaderTextEditor>(tab_container->get_current_tab_control());
 	if (!current)
 		return;
 
@@ -238,7 +238,7 @@ void ShaderEditor::_menu_option(int p_option) {
 
 void ShaderEditor::_tab_changed(int p_which) {
 
-	ShaderTextEditor *shader_editor = tab_container->get_tab_control(p_which)->cast_to<ShaderTextEditor>();
+	ShaderTextEditor *shader_editor = cast_to<ShaderTextEditor>(tab_container->get_tab_control(p_which));
 
 	if (shader_editor && is_inside_tree())
 		shader_editor->get_text_edit()->grab_focus();
@@ -279,7 +279,7 @@ Dictionary ShaderEditor::get_state() const {
 
 	for(int i=0;i<tab_container->get_child_count();i++) {
 
-		ShaderTextEditor *ste = tab_container->get_child(i)->cast_to<ShaderTextEditor>();
+		ShaderTextEditor *ste = cast_to<ShaderTextEditor>(tab_container->get_child(i));
 		if (!ste)
 			continue;
 
@@ -410,7 +410,7 @@ void ShaderEditor::ensure_select_current() {
 /*
 	if (tab_container->get_child_count() && tab_container->get_current_tab()>=0) {
 
-		ShaderTextEditor *ste = tab_container->get_child(tab_container->get_current_tab())->cast_to<ShaderTextEditor>();
+		ShaderTextEditor *ste = cast_to<ShaderTextEditor>(tab_container->get_child(tab_container->get_current_tab()));
 		if (!ste)
 			return;
 		Ref<Shader> shader = ste->get_edited_shader();
@@ -553,16 +553,16 @@ ShaderEditor::ShaderEditor() {
 
 void ShaderEditorPlugin::edit(Object *p_object) {
 
-	if (!p_object->cast_to<Shader>())
+	if (!cast_to<Shader>(p_object))
 		return;
 
-	shader_editor->edit(p_object->cast_to<Shader>());
+	shader_editor->edit(cast_to<Shader>(p_object));
 
 }
 
 bool ShaderEditorPlugin::handles(Object *p_object) const {
 
-	Shader *shader=p_object->cast_to<Shader>();
+	Shader *shader=cast_to<Shader>(p_object);
 	if (!shader)
 		return false;
 	if (_2d)

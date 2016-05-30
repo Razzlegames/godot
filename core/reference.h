@@ -182,7 +182,7 @@ public:
 			return;
 		}
 		Ref r;
-		r.reference=refb->cast_to<T>();
+		r.reference=cast_to<T>(refb);
 		ref(r);
 		r.reference=NULL;
 	}
@@ -196,7 +196,7 @@ public:
 			return;
 		}
 		Ref r;
-		r.reference=refb->cast_to<T>();
+		r.reference=cast_to<T>(refb);
 		ref(r);
 		r.reference=NULL;
 	}
@@ -212,7 +212,7 @@ public:
 			return;
 		}
 		Ref r;
-		r.reference=refb->cast_to<T>();
+		r.reference=cast_to<T>(refb);
 		ref(r);
 		r.reference=NULL;
 	}
@@ -233,7 +233,7 @@ public:
 			return;
 		}
 		Ref r;
-		r.reference=refb->cast_to<T>();
+		r.reference=cast_to<T>(refb);
 		ref(r);
 		r.reference=NULL;
 	}
@@ -257,7 +257,7 @@ public:
 			return;
 		}
 		Ref r;
-		r.reference=refb->cast_to<T>();
+		r.reference=cast_to<T>(refb);
 		ref(r);
 		r.reference=NULL;
 	}
@@ -274,7 +274,7 @@ public:
 			return;
 		}
 		Ref r;
-		r.reference=refb->cast_to<T>();
+		r.reference=cast_to<T>(refb);
 		ref(r);
 		r.reference=NULL;
 	}
@@ -311,6 +311,33 @@ public:
 };
 
 typedef Ref<Reference> REF;
+
+template<class T, class O>
+const T *cast_to(const Ref<O>& o) {
+
+#ifndef NO_SAFE_CAST
+	return SAFE_CAST<const T*>(*o);
+#else
+	if (is_type_ptr(T::get_type_ptr_static()))
+			return static_cast<const T*>(*o);
+	else
+			return NULL;
+#endif
+}
+
+template<class T, class O>
+T *cast_to(Ref<O>& o) {
+
+#ifndef NO_SAFE_CAST
+	return SAFE_CAST<T*>(*o);
+#else
+	if (is_type_ptr(T::get_type_ptr_static()))
+			return static_cast<T*>(*o);
+	else
+			return NULL;
+#endif
+}
+
 
 
 class WeakRef : public Reference {

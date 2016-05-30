@@ -640,8 +640,8 @@ static bool _guess_expression_type(GDCompletionContext& context,const GDParser::
 
 					if (id.operator String()=="new" && base.value.get_type()==Variant::OBJECT) {
 						Object *obj = base.value;
-						if (obj && obj->cast_to<GDNativeClass>()) {
-							GDNativeClass *gdnc = obj->cast_to<GDNativeClass>();
+						if (obj && cast_to<GDNativeClass>(obj)) {
+							GDNativeClass *gdnc = cast_to<GDNativeClass>(obj);
 							r_type.type=Variant::OBJECT;
 							r_type.value=Variant();
 							r_type.obj_type=gdnc->get_name();
@@ -1532,7 +1532,7 @@ static void _find_type_arguments(const GDParser::Node*p_node,int p_line,const St
 				if (obj) {
 
 
-					GDScript *scr = obj->cast_to<GDScript>();
+					GDScript *scr = cast_to<GDScript>(obj);
 					if (scr) {
 						while (scr) {
 
@@ -2169,7 +2169,7 @@ Error GDScriptLanguage::complete_code(const String& p_code, const String& p_base
 						if (obj) {
 
 
-							GDScript *scr = obj->cast_to<GDScript>();
+							GDScript *scr = cast_to<GDScript>(obj);
 							if (scr) {
 								while (scr) {
 
