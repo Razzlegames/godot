@@ -1,4 +1,4 @@
-# Godot auto generated files
+c Godot auto generated files
 *.gen.*
 .import/
 
@@ -330,7 +330,8 @@ platform/windows/godot_res.res
 
 # Visual Studio 2017 and Visual Studio Code workspace folder
 /.vs
-/.vscode
+#  WARNING ADD THIS BACK Before contributing to Godot so you don't push VSCode config files
+#/.vscode
 
 # Visual Studio Code workspace file
 *.code-workspace
