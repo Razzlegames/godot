@@ -113,17 +113,26 @@ public:
  */
 void ConnectDialog::ok_pressed() {
 
-	if (dst_method->get_text() == "") {
+	String method_name = dst_method->get_text();
+
+	if (method_name == "") {
 		error->set_text(TTR("Method in target node must be specified."));
 		error->popup_centered_minsize();
 		return;
 	}
+
+	if (!method_name.strip_edges().is_valid_identifier()) {
+		error->set_text(TTR("Method name must be a valid identifier."));
+		error->popup_centered();
+		return;
+	}
+
 	Node *target = tree->get_selected();
 	if (!target) {
 		return; // Nothing selected in the tree, not an error.
 	}
 	if (target->get_script().is_null()) {
-		if (!target->has_method(dst_method->get_text())) {
+		if (!target->has_method(method_name)) {
 			error->set_text(TTR("Target method not found. Specify a valid method or attach a script to the target node."));
 			error->popup_centered_minsize();
 			return;
@@ -500,7 +509,6 @@ Control *ConnectionsDockTree::make_custom_tooltip(const String &p_text) const {
 	String text = TTR("Signal:") + " [u][b]" + p_text.get_slice("::", 0) + "[/b][/u]";
 	text += p_text.get_slice("::", 1).strip_edges() + "\n";
 	text += p_text.get_slice("::", 2).strip_edges();
-	help_bit->set_text(text);
 	help_bit->call_deferred("set_text", text); //hack so it uses proper theme once inside scene
 	return help_bit;
 }

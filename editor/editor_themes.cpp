@@ -855,6 +855,7 @@ Ref<Theme> create_editor_theme(const Ref<Theme> p_theme) {
 	Ref<StyleBoxFlat> style_panel_invisible_top = style_content_panel->duplicate();
 	int stylebox_offset = theme->get_font("tab_fg", "TabContainer")->get_height() + theme->get_stylebox("tab_fg", "TabContainer")->get_minimum_size().height + theme->get_stylebox("panel", "TabContainer")->get_default_margin(MARGIN_TOP);
 	style_panel_invisible_top->set_expand_margin_size(MARGIN_TOP, -stylebox_offset);
+	style_panel_invisible_top->set_default_margin(MARGIN_TOP, 0);
 	theme->set_stylebox("BottomPanelDebuggerOverride", "EditorStyles", style_panel_invisible_top);
 
 	// LineEdit
@@ -957,12 +958,14 @@ Ref<Theme> create_editor_theme(const Ref<Theme> p_theme) {
 	theme->set_icon("grabber", "HSlider", theme->get_icon("GuiSliderGrabber", "EditorIcons"));
 	theme->set_stylebox("slider", "HSlider", make_flat_stylebox(dark_color_3, 0, default_margin_size / 2, 0, default_margin_size / 2));
 	theme->set_stylebox("grabber_area", "HSlider", make_flat_stylebox(contrast_color_1, 0, default_margin_size / 2, 0, default_margin_size / 2));
+	theme->set_stylebox("grabber_area_highlight", "HSlider", make_flat_stylebox(contrast_color_1, 0, default_margin_size / 2, 0, default_margin_size / 2));
 
 	// VSlider
 	theme->set_icon("grabber", "VSlider", theme->get_icon("GuiSliderGrabber", "EditorIcons"));
 	theme->set_icon("grabber_highlight", "VSlider", theme->get_icon("GuiSliderGrabberHl", "EditorIcons"));
 	theme->set_stylebox("slider", "VSlider", make_flat_stylebox(dark_color_3, default_margin_size / 2, 0, default_margin_size / 2, 0));
 	theme->set_stylebox("grabber_area", "VSlider", make_flat_stylebox(contrast_color_1, default_margin_size / 2, 0, default_margin_size / 2, 0));
+	theme->set_stylebox("grabber_area_highlight", "VSlider", make_flat_stylebox(contrast_color_1, default_margin_size / 2, 0, default_margin_size / 2, 0));
 
 	//RichTextLabel
 	theme->set_color("default_color", "RichTextLabel", font_color);
@@ -990,6 +993,9 @@ Ref<Theme> create_editor_theme(const Ref<Theme> p_theme) {
 	// LinkButton
 	theme->set_stylebox("focus", "LinkButton", style_empty);
 	theme->set_color("font_color", "LinkButton", font_color);
+	theme->set_color("font_color_hover", "LinkButton", font_color_hl);
+	theme->set_color("font_color_pressed", "LinkButton", accent_color);
+	theme->set_color("font_color_disabled", "LinkButton", font_color_disabled);
 
 	// TooltipPanel
 	Ref<StyleBoxFlat> style_tooltip = style_popup->duplicate();
